@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | QuickMedi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button.active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .order-status.pending {
+            color: #f59e0b;
+        }
+        .order-status.completed {
+            color: #10b981;
+        }
+        .order-status.cancelled {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <main class="min-h-screen py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Sidebar Navigation -->
+                <div class="md:w-64 flex-shrink-0">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden mb-4">
+                        <div class="p-6 bg-blue-600 text-white">
+                            <div class="flex items-center space-x-3">
+                                <div class="h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h2 class="font-bold" id="user-name">John Doe</h2>
+                                    <p class="text-sm opacity-80">Member since 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <ul class="space-y-2">
+                                <li>
+                                    <button class="tab-button w-full text-left p-2 rounded-lg hover:bg-gray-100 active" data-tab="profile">
+                                        <i class="fas fa-user-circle mr-2"></i> Profile
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="tab-button w-full text-left p-2 rounded-lg hover:bg-gray-100" data-tab="appointments">
+                                        <i class="fas fa-calendar-alt mr-2"></i> Appointments
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="tab-button w-full text-left p-2 rounded-lg hover:bg-gray-100" data-tab="orders">
+                                        <i class="fas fa-pills mr-2"></i> Medicine Orders
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="tab-button w-full text-left p-2 rounded-lg hover:bg-gray-100" data-tab="settings">
+                                        <i class="fas fa-cog mr-2"></i> Settings
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="w-full text-left p-2 rounded-lg hover:bg-gray-100 text-red-600" id="logout-btn">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden p-4">
+                        <h3 class="font-semibold mb-3">Quick Actions</h3>
+                        <div class="space-y-2">
+                            <a href="book-appointment.html" class="flex items-center p-2 rounded-lg hover:bg-gray-100 text-blue-600">
+                                <i class="fas fa-plus-circle mr-2"></i> New Appointment
+                            </a>
+                            <a href="buy-medicine.html" class="flex items-center p-2 rounded-lg hover:bg-gray-100 text-blue-600">
+                                <i class="fas fa-shopping-cart mr-2"></i> Order Medicine
+                            </a>
+                            <a href="find-hospital.html" class="flex items-center p-2 rounded-lg hover:bg-gray-100 text-blue-600">
+                                <i class="fas fa-hospital mr-2"></i> Find Hospital
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="flex-1">
+                    <!-- Profile Tab -->
+                    <div class="tab-content active bg-white rounded-xl shadow-md overflow-hidden p-6" id="profile-tab">
+                        <h2 class="text-2xl font-bold mb-6">My Profile</h2>
+                        <form id="profile-form">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                    <input type="text" id="first-name" value="John" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                </div>
+                                <div>
+                                    <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                    <input type="text" id="last-name" value="Doe" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                    <input type="email" id="email" value="john.doe@example.com" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                    <input type="tel" id="phone" value="+1 (555) 123-4567" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                </div>
+                                <div>
+                                    <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                                    <input type="date" id="dob" value="1985-06-15" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                                    <select id="gender" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                    <textarea id="address" rows="2" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">123 Main St, Cityville, ST 12345</textarea>
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-medium transition">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Appointments Tab -->
+                    <div class="tab-content bg-white rounded-xl shadow-md overflow-hidden p-6" id="appointments-tab">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold">My Appointments</h2>
+                            <a href="book-appointment.html" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition">
+                                <i class="fas fa-plus mr-1"></i> New Appointment
+                            </a>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium">Jun 15, 2023</div>
+                                            <div class="text-sm text-gray-500">10:00 AM</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium">Dr. Sarah Johnson</div>
+                                            <div class="text-sm text-gray-500">General Practitioner</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">Annual Checkup</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">Details</a>
+                                            <a href="#" class="text-blue-600 hover:text-blue-900">Reschedule</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium">Jun 28, 2023</div>
+                                            <div class="text-sm text-gray-500">2:30 PM</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium">Dr. Michael Chen</div>
+                                            <div class="text-sm text-gray-500">Cardiologist</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">Consultation</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Upcoming</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">Details</a>
+                                            <a href="#" class="text-blue-600 hover:text-blue-900">Cancel</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium">May 20, 2023</div>
+                                            <div class="text-sm text-gray-500">9:15 AM</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium">Dr. Emily Wilson</div>
+                                            <div class="text-sm text-gray-500">Dermatologist</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">Skin Check</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Cancelled</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <a href="#" class="text-blue-600 hover:text-blue-900">Details</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Orders Tab -->
+                    <div class="tab-content bg-white rounded-xl shadow-md overflow-hidden p-6" id="orders-tab">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold">Medicine Orders</h2>
+                            <a href="buy-medicine.html" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition">
+                                <i class="fas fa-plus mr-1"></i> New Order
+                            </a>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="border rounded-lg overflow-hidden">
+                                <div class="bg-gray-50 px-4 py-3 flex justify-between items-center border-b">
+                                    <div>
+                                        <span class="font-medium">Order #QM-1001</span>
+                                        <span class="text-sm text-gray-500 ml-2">Placed on Jun 10, 2023</span>
+                                    </div>
+                                    <div>
+                                        <span class="order-status completed font-medium">Delivered</span>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
+                                        <div class="flex items-center mb-2 sm:mb-0">
+                                            <img src="https://images.pexels.com/photos/159211/headache-pain-pills-medication-159211.jpeg" 
+                                                 alt="Medicine" class="w-12 h-12 rounded-md object-cover mr-3">
+                                            <div>
+                                                <h4 class="font-medium">Paracetamol 500mg</h4>
+                                                <p class="text-sm text-gray-500">Qty: 2</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium">$11.98</p>
+                                            <p class="text-sm text-gray-500">Delivered on Jun 12, 2023</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                            <i class="fas fa-redo mr-1"></i> Reorder
+                                        </button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                            <i class="fas fa-file-invoice mr-1"></i> Invoice
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border rounded-lg overflow-hidden">
+                                <div class="bg-gray-50 px-4 py-3 flex justify-between items-center border-b">
+                                    <div>
+                                        <span class="font-medium">Order #QM-1002</span>
+                                        <span class="text-sm text-gray-500 ml-2">Placed on Jun 18, 2023</span>
+                                    </div>
+                                    <div>
+                                        <span class="order-status pending font-medium">Processing</span>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
+                                        <div class="flex items-center mb-2 sm:mb-0">
+                                            <img src="https://images.pexels.com/photos/208512/pexels-photo-208512.jpeg" 
+                                                 alt="Medicine" class="w-12 h-12 rounded-md object-cover mr-3">
+                                            <div>
+                                                <h4 class="font-medium">Ibuprofen 200mg</h4>
+                                                <p class="text-sm text-gray-500">Qty: 1</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium">$7.49</p>
+                                            <p class="text-sm text-gray-500">Expected delivery: Jun 20, 2023</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                            <i class="fas fa-times mr-1"></i> Cancel
+                                        </button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                            <i class="fas fa-truck mr-1"></i> Track
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div class="tab-content bg-white rounded-xl shadow-md overflow-hidden p-6" id="settings-tab">
+                        <h2 class="text-2xl font-bold mb-6">Account Settings</h2>
+                        <div class="space-y-6">
+                            <div class="border-b pb-6">
+                                <h3 class="text-lg font-semibold mb-4">Notification Preferences</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium">Email Notifications</p>
+                                            <p class="text-sm text-gray-500">Receive updates via email</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium">SMS Notifications</p>
+                                            <p class="text-sm text-gray-500">Receive updates via text message</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium">App Notifications</p>
+                                            <p class="text-sm text-gray-500">Receive in-app notifications</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-b pb-6">
+                                <h3 class="text-lg font-semibold mb-4">Change Password</h3>
+                                <form id="password-form">
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="current-password" class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                                            <input type="password" id="current-password" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                        </div>
+                                        <div>
+                                            <label for="new-password" class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                                            <input type="password" id="new-password" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                        </div>
+                                        <div>
+                                            <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+                                            <input type="password" id="confirm-password" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-medium transition">
+                                            Update Password
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Delete Account</h3>
+                                <p class="text-gray-600 mb-4">Permanently delete your account and all associated data. This action cannot be undone.</p>
+                                <button id="delete-account-btn" class="bg-red-600 hover:bg-red-700 text-white py-2 px-6 rounded-lg font-medium transition">
+                                    <i class="fas fa-exclamation-triangle mr-2"></i> Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update active tab button
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding tab content
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+
+            // Profile form submission
+            document.getElementById('profile-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Update user name in sidebar
+                const firstName = document.getElementById('first-name').value;
+                const lastName = document.getElementById('last-name').value;
+                document.getElementById('user-name').textContent = `${firstName} ${lastName}`;
+                
+                // Show success message
+                alert('Profile updated successfully!');
+            });
+
+            // Password form submission
+            document.getElementById('password-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                if (newPassword !== confirmPassword) {
+                    alert('New passwords do not match!');
+                    return;
+                }
+                
+                // In a real app, this would validate current password and update it
+                console.log('Password change requested');
+                alert('Password updated successfully!');
+                this.reset();
+            });
+
+            // Delete account button
+            document.getElementById('delete-account-btn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                    // In a real app, this would send a request to delete the account
+                    alert('Account deletion request received. In a real app, this would log you out and delete your account.');
+                }
+            });
+
+            // Logout button
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to log out?')) {
+                    // In a real app, this would clear session and redirect to login
+                    alert('You have been logged out. In a real app, this would redirect to the login page.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
