@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | QuickMedi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-blue-600 text-white py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">About QuickMedi</h1>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto">
+                    Revolutionizing healthcare access through technology and innovation
+                </p>
+            </div>
+        </section>
+
+        <!-- Our Story Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <img src="https://images.pexels.com/photos/5721876/pexels-photo-5721876.jpeg" 
+                             alt="Medical team" class="rounded-xl shadow-lg w-full">
+                    </div>
+                    <div class="md:w-1/2">
+                        <h2 class="text-3xl font-bold mb-6">Our Story</h2>
+                        <p class="text-gray-600 mb-4">
+                            Founded in 2020, QuickMedi began as a small team of healthcare professionals and technologists 
+                            with a shared vision: to make quality healthcare accessible to everyone, anytime, anywhere.
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            What started as a simple platform to connect patients with doctors has now grown into a 
+                            comprehensive healthcare ecosystem serving millions of users across the country.
+                        </p>
+                        <p class="text-gray-600">
+                            Today, we're proud to be at the forefront of digital healthcare innovation, constantly 
+                            developing new solutions to improve patient outcomes and streamline medical services.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="bg-gray-50 py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">By The Numbers</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="stat-card bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">250K+</div>
+                        <h3 class="text-lg font-semibold mb-1">Patients Served</h3>
+                        <p class="text-gray-600 text-sm">Trusting us with their healthcare needs</p>
+                    </div>
+                    <div class="stat-card bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">5K+</div>
+                        <h3 class="text-lg font-semibold mb-1">Healthcare Providers</h3>
+                        <p class="text-gray-600 text-sm">Partnered with our platform</p>
+                    </div>
+                    <div class="stat-card bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
+                        <h3 class="text-lg font-semibold mb-1">Availability</h3>
+                        <p class="text-gray-600 text-sm">Always here when you need us</p>
+                    </div>
+                    <div class="stat-card bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">98%</div>
+                        <h3 class="text-lg font-semibold mb-1">Satisfaction Rate</h3>
+                        <p class="text-gray-600 text-sm">From our patients and partners</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        To democratize healthcare by leveraging technology to provide affordable, accessible, 
+                        and high-quality medical services to everyone, regardless of location or socioeconomic status.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <div class="bg-blue-100 text-blue-800 p-4 rounded-lg">
+                            <i class="fas fa-heartbeat text-2xl mb-2"></i>
+                            <h3 class="font-semibold">Patient-Centered</h3>
+                        </div>
+                        <div class="bg-green-100 text-green-800 p-4 rounded-lg">
+                            <i class="fas fa-lightbulb text-2xl mb-2"></i>
+                            <h3 class="font-semibold">Innovative</h3>
+                        </div>
+                        <div class="bg-purple-100 text-purple-800 p-4 rounded-lg">
+                            <i class="fas fa-hand-holding-heart text-2xl mb-2"></i>
+                            <h3 class="font-semibold">Compassionate</h3>
+                        </div>
+                        <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg">
+                            <i class="fas fa-shield-alt text-2xl mb-2"></i>
+                            <h3 class="font-semibold">Trustworthy</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="bg-gray-50 py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Meet Our Team</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="team-member bg-white p-6 rounded-xl shadow-md text-center transition">
+                        <img src="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg" 
+                             alt="Dr. Sarah Johnson" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold mb-1">Dr. Sarah Johnson</h3>
+                        <p class="text-blue-600 mb-3">Chief Medical Officer</p>
+                        <p class="text-gray-600 text-sm">
+                            Board-certified physician with 15+ years of clinical experience
+                        </p>
+                        <div class="flex justify-center space-x-3 mt-4">
+                            <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member bg-white p-6 rounded-xl shadow-md text-center transition">
+                        <img src="https://images.pexels.com/photos/3777946/pexels-photo-3777946.jpeg" 
+                             alt="Michael Chen" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold mb-1">Michael Chen</h3>
+                        <p class="text-blue-600 mb-3">CEO & Co-Founder</p>
+                        <p class="text-gray-600 text-sm">
+                            Tech entrepreneur passionate about healthcare innovation
+                        </p>
+                        <div class="flex justify-center space-x-3 mt-4">
+                            <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member bg-white p-6 rounded-xl shadow-md text-center transition">
+                        <img src="https://images.pexels.com/photos/3777942/pexels-photo-3777942.jpeg" 
+                             alt="Emily Rodriguez" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold mb-1">Emily Rodriguez</h3>
+                        <p class="text-blue-600 mb-3">CTO & Co-Founder</p>
+                        <p class="text-gray-600 text-sm">
+                            Software engineer with expertise in healthcare systems
+                        </p>
+                        <div class="flex justify-center space-x-3 mt-4">
+                            <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member bg-white p-6 rounded-xl shadow-md text-center transition">
+                        <img src="https://images.pexels.com/photos/3777949/pexels-photo-3777949.jpeg" 
+                             alt="David Kim" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold mb-1">David Kim</h3>
+                        <p class="text-blue-600 mb-3">Head of Operations</p>
+                        <p class="text-gray-600 text-sm">
+                            Healthcare administration specialist ensuring smooth service
+                        </p>
+                        <div class="flex justify-center space-x-3 mt-4">
+                            <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 bg-blue-600 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-6">Join Us in Transforming Healthcare</h2>
+                <p class="text-xl mb-8 max-w-3xl mx-auto">
+                    Whether you're a healthcare provider looking to expand your reach or a patient seeking 
+                    better care, we'd love to have you as part of the QuickMedi family.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="contact-us.html" class="bg-white text-blue-600 hover:bg-gray-100 py-3 px-6 rounded-lg font-medium transition">
+                        Contact Us
+                    </a>
+                    <a href="book-appointment.html" class="bg-transparent border-2 border-white hover:bg-blue-700 py-3 px-6 rounded-lg font-medium transition">
+                        Book an Appointment
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+    </script>
+</body>
+</html>
