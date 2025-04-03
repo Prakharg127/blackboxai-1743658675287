@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs | QuickMedi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .faq-question {
+            transition: all 0.3s ease;
+        }
+        .faq-question:hover {
+            color: #3b82f6;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer.active {
+            max-height: 500px;
+        }
+        .search-box {
+            background-position: 1rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5rem;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <main class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-3xl font-bold mb-2">Frequently Asked Questions</h1>
+                <p class="text-gray-600 mb-8">Find answers to common questions about QuickMedi services</p>
+
+                <!-- Search Box -->
+                <div class="mb-8 relative">
+                    <input type="text" id="faq-search" placeholder="Search FAQs..." 
+                           class="w-full p-4 pl-12 border rounded-lg focus:ring-blue-500 focus:border-blue-500 search-box"
+                           style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%239ca3af\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z\' /%3E%3C/svg%3E')">
+                    <div id="search-results" class="hidden mt-2 text-sm text-gray-500"></div>
+                </div>
+
+                <!-- FAQ Categories -->
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <button class="category-btn bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium" data-category="all">All Questions</button>
+                    <button class="category-btn bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full text-sm font-medium" data-category="appointments">Appointments</button>
+                    <button class="category-btn bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full text-sm font-medium" data-category="medicines">Medicines</button>
+                    <button class="category-btn bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full text-sm font-medium" data-category="payments">Payments</button>
+                    <button class="category-btn bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full text-sm font-medium" data-category="account">Account</button>
+                    <button class="category-btn bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full text-sm font-medium" data-category="emergency">Emergency</button>
+                </div>
+
+                <!-- FAQ List -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="divide-y divide-gray-200">
+                        <!-- Appointments -->
+                        <div class="faq-item p-6" data-categories="appointments">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">How do I book an appointment with a doctor?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <p>To book an appointment:</p>
+                                <ol class="list-decimal pl-5 space-y-1 mt-2">
+                                    <li>Go to the <a href="book-appointment.html" class="text-blue-600 hover:underline">Book Appointment</a> page</li>
+                                    <li>Select your preferred doctor or specialty</li>
+                                    <li>Choose an available date and time</li>
+                                    <li>Provide your medical information (if required)</li>
+                                    <li>Confirm your appointment</li>
+                                </ol>
+                                <p class="mt-2">You'll receive a confirmation email with all the details.</p>
+                            </div>
+                        </div>
+
+                        <!-- Appointments -->
+                        <div class="faq-item p-6" data-categories="appointments">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">Can I reschedule or cancel an appointment?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <p>Yes, you can reschedule or cancel appointments:</p>
+                                <ul class="list-disc pl-5 space-y-1 mt-2">
+                                    <li>Log in to your <a href="user-account.html" class="text-blue-600 hover:underline">account</a></li>
+                                    <li>Go to the "Appointments" section</li>
+                                    <li>Find the appointment you want to change</li>
+                                    <li>Click "Reschedule" or "Cancel"</li>
+                                </ul>
+                                <p class="mt-2"><strong>Note:</strong> Cancellations less than 24 hours before the appointment may be subject to a fee.</p>
+                            </div>
+                        </div>
+
+                        <!-- Medicines -->
+                        <div class="faq-item p-6" data-categories="medicines">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">How do I order prescription medications?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <p>To order prescription medications:</p>
+                                <ol class="list-decimal pl-5 space-y-1 mt-2">
+                                    <li>Visit the <a href="buy-medicine.html" class="text-blue-600 hover:underline">Buy Medicine</a> page</li>
+                                    <li>Search for your prescribed medication</li>
+                                    <li>Upload your prescription (or have your doctor send it directly)</li>
+                                    <li>Select quantity and delivery options</li>
+                                    <li>Complete your order</li>
+                                </ol>
+                                <p class="mt-2">Most prescriptions are delivered within 1-3 business days.</p>
+                            </div>
+                        </div>
+
+                        <!-- Medicines -->
+                        <div class="faq-item p-6" data-categories="medicines">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">What if my medication requires refrigeration?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <p>We handle temperature-sensitive medications with care:</p>
+                                <ul class="list-disc pl-5 space-y-1 mt-2">
+                                    <li>Medications are shipped in special insulated packaging</li>
+                                    <li>Ice packs or dry ice are included as needed</li>
+                                    <li>Expedited shipping options are available</li>
+                                    <li>You'll receive tracking information and delivery alerts</li>
+                                </ul>
+                                <p class="mt-2">Please be available to receive and refrigerate the medication immediately upon delivery.</p>
+                            </div>
+                        </div>
+
+                        <!-- Payments -->
+                        <div class="faq-item p-6" data-categories="payments">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">What payment methods do you accept?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <p>We accept various payment methods:</p>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-3">
+                                    <div class="flex items-center">
+                                        <i class="fab fa-cc-visa text-2xl text-gray-700 mr-2"></i>
+                                        <span>Visa</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fab fa-cc-mastercard text-2xl text-gray-700 mr-2"></i>
+                                        <span>Mastercard</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fab fa-cc-amex text-2xl text-gray-700 mr-2"></i>
+                                        <span>American Express</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fab fa-cc-discover text-2xl text-gray-700 mr-2"></i>
+                                        <span>Discover</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fab fa-cc-paypal text-2xl text-gray-700 mr-2"></i>
+                                        <span>PayPal</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-mobile-alt text-2xl text-gray-700 mr-2"></i>
+                                        <span>Apple Pay</span>
+                                    </div>
+                                </div>
+                                <p class="mt-3">We also accept HSA/FSA cards for eligible medical expenses.</p>
+                            </div>
+                        </div>
+
+                        <!-- Payments -->
+                        <div class="faq-item p-6" data-categories="payments">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">Do you accept insurance?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <p>We work with many major insurance providers for both medical services and prescriptions:</p>
+                                <ul class="list-disc pl-5 space-y-1 mt-2">
+                                    <li>During checkout, you can enter your insurance information</li>
+                                    <li>We'll verify your coverage and apply benefits</li>
+                                    <li>You'll only be responsible for any copays or deductibles</li>
+                                </ul>
+                                <p class="mt-2">For a list of accepted insurance plans, please visit our <a href="insurance.html" class="text-blue-600 hover:underline">Insurance Information</a> page.</p>
+                            </div>
+                        </div>
+
+                        <!-- Account -->
+                        <div class="faq-item p-6" data-categories="account">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">How do I reset my password?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <p>To reset your password:</p>
+                                <ol class="list-decimal pl-5 space-y-1 mt-2">
+                                    <li>Go to the login page</li>
+                                    <li>Click "Forgot Password"</li>
+                                    <li>Enter the email address associated with your account</li>
+                                    <li>Check your email for a password reset link</li>
+                                    <li>Follow the instructions to create a new password</li>
+                                </ol>
+                                <p class="mt-2">If you don't receive the email, check your spam folder or <a href="contact-us.html" class="text-blue-600 hover:underline">contact support</a>.</p>
+                            </div>
+                        </div>
+
+                        <!-- Account -->
+                        <div class="faq-item p-6" data-categories="account">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">How do I update my personal information?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <p>You can update your information at any time:</p>
+                                <ul class="list-disc pl-5 space-y-1 mt-2">
+                                    <li>Log in to your <a href="user-account.html" class="text-blue-600 hover:underline">account</a></li>
+                                    <li>Go to the "Profile" section</li>
+                                    <li>Edit any of your personal details</li>
+                                    <li>Click "Save Changes"</li>
+                                </ul>
+                                <p class="mt-2"><strong>Important:</strong> Please keep your contact and insurance information up to date for proper care coordination.</p>
+                            </div>
+                        </div>
+
+                        <!-- Emergency -->
+                        <div class="faq-item p-6" data-categories="emergency">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">What should I do in a medical emergency?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-3">
+                                    <p class="font-medium text-red-700">For life-threatening emergencies:</p>
+                                    <p class="mt-1">Call your local emergency number (911 in the US) or go to the nearest hospital immediately.</p>
+                                </div>
+                                <p>For urgent but non-life-threatening situations:</p>
+                                <ul class="list-disc pl-5 space-y-1 mt-2">
+                                    <li>Use our <a href="ambulance-service.html" class="text-blue-600 hover:underline">Emergency Services</a> page to request assistance</li>
+                                    <li>Visit our <a href="find-hospital.html" class="text-blue-600 hover:underline">Find Hospital</a> page to locate nearby facilities</li>
+                                    <li>Call our 24/7 support line at +1 (800) 555-1234</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Emergency -->
+                        <div class="faq-item p-6" data-categories="emergency">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="text-lg font-medium">How quickly can I get emergency medical help?</h3>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-3 text-gray-600">
+                                <p>Response times vary depending on your location and the nature of the emergency:</p>
+                                <ul class="list-disc pl-5 space-y-1 mt-2">
+                                    <li><strong>Ambulance services:</strong> Typically 5-15 minutes in urban areas</li>
+                                    <li><strong>Urgent care:</strong> Same-day appointments often available</li>
+                                    <li><strong>Telemedicine:</strong> Immediate connection to a healthcare provider</li>
+                                </ul>
+                                <p class="mt-2">For the fastest response in life-threatening situations, always call emergency services first.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Still Have Questions -->
+                <div class="mt-12 bg-blue-50 rounded-xl p-6 text-center">
+                    <h3 class="text-xl font-semibold mb-3">Still have questions?</h3>
+                    <p class="text-gray-600 mb-4">Our support team is available 24/7 to help you</p>
+                    <a href="contact-us.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-medium transition">
+                        Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+
+        // FAQ functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const faqSearch = document.getElementById('faq-search');
+            const searchResults = document.getElementById('search-results');
+            let activeCategory = 'all';
+
+            // Toggle FAQ answers
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    answer.classList.toggle('active');
+                    icon.classList.toggle('fa-chevron-down');
+                    icon.classList.toggle('fa-chevron-up');
+                });
+            });
+
+            // Filter by category
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active button
+                    categoryBtns.forEach(b => b.classList.remove('bg-blue-600', 'text-white'));
+                    categoryBtns.forEach(b => b.classList.add('bg-gray-200', 'text-gray-800'));
+                    this.classList.remove('bg-gray-200', 'text-gray-800');
+                    this.classList.add('bg-blue-600', 'text-white');
+                    
+                    // Get category
+                    activeCategory = this.getAttribute('data-category');
+                    
+                    // Filter FAQs
+                    const faqItems = document.querySelectorAll('.faq-item');
+                    faqItems.forEach(item => {
+                        if (activeCategory === 'all' || item.getAttribute('data-categories').includes(activeCategory)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Search functionality
+            faqSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const faqItems = document.querySelectorAll('.faq-item');
+                let matchCount = 0;
+                
+                if (searchTerm.length < 2) {
+                    searchResults.classList.add('hidden');
+                    return;
+                }
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                    const isInCategory = activeCategory === 'all' || 
+                                         item.getAttribute('data-categories').includes(activeCategory);
+                    
+                    if ((question.includes(searchTerm) || answer.includes(searchTerm)) && isInCategory) {
+                        item.style.display = 'block';
+                        matchCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Show results count
+                searchResults.textContent = `${matchCount} results found`;
+                searchResults.classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
