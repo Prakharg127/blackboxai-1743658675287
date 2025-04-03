@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Medicine | QuickMedi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .medicine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item:hover {
+            background-color: #f9fafb;
+        }
+        #cart-sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+        .cart-hidden {
+            transform: translateX(100%);
+        }
+        .cart-visible {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <main class="min-h-screen py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold">Buy Medicine</h1>
+                <button id="cart-toggle" class="relative bg-white p-2 rounded-full shadow-md hover:bg-gray-100">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">0</span>
+                </button>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="bg-white p-4 rounded-xl shadow-md mb-8">
+                <div class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
+                    <div class="flex-1 relative">
+                        <input type="text" id="medicine-search" placeholder="Search medicines..." 
+                               class="w-full p-3 pl-10 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <div class="w-full md:w-64">
+                        <select id="medicine-category" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">All Categories</option>
+                            <option value="pain-relief">Pain Relief</option>
+                            <option value="antibiotics">Antibiotics</option>
+                            <option value="vitamins">Vitamins & Supplements</option>
+                            <option value="allergy">Allergy & Sinus</option>
+                            <option value="digestive">Digestive Health</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medicine Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="medicine-grid">
+                <!-- Medicine cards will be dynamically generated -->
+            </div>
+        </div>
+
+        <!-- Cart Sidebar -->
+        <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-xl z-50 overflow-y-auto cart-hidden">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h2 class="text-xl font-bold">Your Cart</h2>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-4" id="cart-items">
+                <!-- Cart items will be dynamically generated -->
+                <p class="text-gray-500 text-center py-8" id="empty-cart-message">Your cart is empty</p>
+            </div>
+            <div class="p-4 border-t sticky bottom-0 bg-white">
+                <div class="flex justify-between mb-4">
+                    <span class="font-semibold">Subtotal:</span>
+                    <span id="cart-subtotal">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium transition disabled:opacity-50" disabled>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+
+        // Medicine data
+        const medicines = [
+            { id: 1, name: "Paracetamol 500mg", category: "pain-relief", price: 5.99, image: "https://images.pexels.com/photos/159211/headache-pain-pills-medication-159211.jpeg" },
+            { id: 2, name: "Ibuprofen 200mg", category: "pain-relief", price: 7.49, image: "https://images.pexels.com/photos/208512/pexels-photo-208512.jpeg" },
+            { id: 3, name: "Amoxicillin 500mg", category: "antibiotics", price: 12.99, image: "https://images.pexels.com/photos/208518/pexels-photo-208518.jpeg" },
+            { id: 4, name: "Vitamin C 1000mg", category: "vitamins", price: 9.99, image: "https://images.pexels.com/photos/5946080/pexels-photo-5946080.jpeg" },
+            { id: 5, name: "Multivitamin Complex", category: "vitamins", price: 15.99, image: "https://images.pexels.com/photos/5946082/pexels-photo-5946082.jpeg" },
+            { id: 6, name: "Cetirizine 10mg", category: "allergy", price: 8.49, image: "https://images.pexels.com/photos/5946081/pexels-photo-5946081.jpeg" },
+            { id: 7, name: "Omeprazole 20mg", category: "digestive", price: 10.99, image: "https://images.pexels.com/photos/208519/pexels-photo-208519.jpeg" },
+            { id: 8, name: "Loratadine 10mg", category: "allergy", price: 6.99, image: "https://images.pexels.com/photos/208520/pexels-photo-208520.jpeg" }
+        ];
+
+        // Cart state
+        let cart = [];
+
+        // DOM elements
+        const medicineGrid = document.getElementById('medicine-grid');
+        const cartItems = document.getElementById('cart-items');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartCount = document.getElementById('cart-count');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartToggle = document.getElementById('cart-toggle');
+        const closeCart = document.getElementById('close-cart');
+        const medicineSearch = document.getElementById('medicine-search');
+        const medicineCategory = document.getElementById('medicine-category');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMedicineGrid(medicines);
+            updateCart();
+
+            // Cart toggle
+            cartToggle.addEventListener('click', function() {
+                cartSidebar.classList.remove('cart-hidden');
+                cartSidebar.classList.add('cart-visible');
+            });
+
+            closeCart.addEventListener('click', function() {
+                cartSidebar.classList.remove('cart-visible');
+                cartSidebar.classList.add('cart-hidden');
+            });
+
+            // Search functionality
+            medicineSearch.addEventListener('input', filterMedicines);
+            medicineCategory.addEventListener('change', filterMedicines);
+
+            // Checkout button
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length > 0) {
+                    alert('Proceeding to checkout! In a real app, this would redirect to a payment page.');
+                    // In a real app, you would redirect to a checkout page
+                    // window.location.href = 'checkout.html';
+                }
+            });
+        });
+
+        // Render medicine grid
+        function renderMedicineGrid(medicinesToShow) {
+            medicineGrid.innerHTML = '';
+            
+            if (medicinesToShow.length === 0) {
+                medicineGrid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-12">No medicines found matching your search.</p>';
+                return;
+            }
+
+            medicinesToShow.forEach(medicine => {
+                const medicineCard = document.createElement('div');
+                medicineCard.className = 'medicine-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300';
+                medicineCard.innerHTML = `
+                    <div class="h-48 overflow-hidden">
+                        <img src="${medicine.image}" alt="${medicine.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">${medicine.name}</h3>
+                        <p class="text-gray-600 text-sm mb-3">${formatCategory(medicine.category)}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-600">$${medicine.price.toFixed(2)}</span>
+                            <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg text-sm transition" 
+                                    data-id="${medicine.id}" data-name="${medicine.name}" data-price="${medicine.price}">
+                                <i class="fas fa-cart-plus mr-1"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                `;
+                medicineGrid.appendChild(medicineCard);
+            });
+
+            // Add event listeners to all "Add to Cart" buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const name = this.getAttribute('data-name');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    
+                    addToCart(id, name, price);
+                });
+            });
+        }
+
+        // Format category for display
+        function formatCategory(category) {
+            const categoryMap = {
+                'pain-relief': 'Pain Relief',
+                'antibiotics': 'Antibiotics',
+                'vitamins': 'Vitamins & Supplements',
+                'allergy': 'Allergy & Sinus',
+                'digestive': 'Digestive Health'
+            };
+            return categoryMap[category] || category;
+        }
+
+        // Filter medicines based on search and category
+        function filterMedicines() {
+            const searchTerm = medicineSearch.value.toLowerCase();
+            const selectedCategory = medicineCategory.value;
+            
+            const filtered = medicines.filter(medicine => {
+                const matchesSearch = medicine.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = selectedCategory === '' || medicine.category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+            
+            renderMedicineGrid(filtered);
+        }
+
+        // Add item to cart
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            
+            updateCart();
+            
+            // Show cart sidebar if it's hidden
+            cartSidebar.classList.remove('cart-hidden');
+            cartSidebar.classList.add('cart-visible');
+            
+            // Show success message
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle mr-2"></i>
+                <span>${name} added to cart</span>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => notification.remove(), 500);
+            }, 2000);
+        }
+
+        // Update cart UI
+        function updateCart() {
+            // Update cart items list
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartItems.innerHTML = '';
+            } else {
+                emptyCartMessage.style.display = 'none';
+                cartItems.innerHTML = '';
+                
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item flex items-center p-3 border-b transition';
+                    cartItem.innerHTML = `
+                        <div class="flex-1">
+                            <h4 class="font-medium">${item.name}</h4>
+                            <p class="text-sm text-gray-600">$${item.price.toFixed(2)} each</p>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="decrease-quantity text-gray-500 hover:text-red-500 px-2" data-id="${item.id}">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="quantity mx-2 w-8 text-center">${item.quantity}</span>
+                            <button class="increase-quantity text-gray-500 hover:text-green-500 px-2" data-id="${item.id}">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <button class="remove-item text-red-500 hover:text-red-700 ml-4" data-id="${item.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const item = cart.find(item => item.id === id);
+                    if (item) {
+                        item.quantity += 1;
+                        updateCart();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const itemIndex = cart.findIndex(item => item.id === id);
+                    if (itemIndex !== -1) {
+                        if (cart[itemIndex].quantity > 1) {
+                            cart[itemIndex].quantity -= 1;
+                        } else {
+                            cart.splice(itemIndex, 1);
+                        }
+                        updateCart();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const itemIndex = cart.findIndex(item => item.id === id);
+                    if (itemIndex !== -1) {
+                        cart.splice(itemIndex, 1);
+                        updateCart();
+                    }
+                });
+            });
+            
+            // Update cart count and subtotal
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+            
+            // Enable/disable checkout button
+            checkoutBtn.disabled = totalItems === 0;
+        }
+    </script>
+</body>
+</html>
