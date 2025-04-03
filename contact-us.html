@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | QuickMedi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        #contact-map {
+            height: 400px;
+            width: 100%;
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-blue-600 text-white py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Contact QuickMedi</h1>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto">
+                    We're here to help and answer any questions you may have
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Options Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="contact-card bg-white p-6 rounded-xl shadow-md text-center transition">
+                        <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-phone-alt text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Call Us</h3>
+                        <p class="text-gray-600 mb-3">Speak with our support team</p>
+                        <a href="tel:+18005551234" class="text-blue-600 font-medium hover:text-blue-800">
+                            +1 (800) 555-1234
+                        </a>
+                        <p class="text-sm text-gray-500 mt-1">24/7 Support</p>
+                    </div>
+                    <div class="contact-card bg-white p-6 rounded-xl shadow-md text-center transition">
+                        <div class="bg-green-100 text-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Email Us</h3>
+                        <p class="text-gray-600 mb-3">Send us a message anytime</p>
+                        <a href="mailto:support@quickmedi.com" class="text-blue-600 font-medium hover:text-blue-800">
+                            support@quickmedi.com
+                        </a>
+                        <p class="text-sm text-gray-500 mt-1">Typically replies within 24 hours</p>
+                    </div>
+                    <div class="contact-card bg-white p-6 rounded-xl shadow-md text-center transition">
+                        <div class="bg-purple-100 text-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-comment-dots text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Live Chat</h3>
+                        <p class="text-gray-600 mb-3">Chat with our support agents</p>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition">
+                            Start Chat
+                        </button>
+                        <p class="text-sm text-gray-500 mt-1">Mon-Fri, 8AM-8PM EST</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <!-- Contact Form -->
+                    <div class="lg:w-1/2">
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                            <div class="p-6 bg-gray-50 border-b">
+                                <h2 class="text-2xl font-semibold">Send Us a Message</h2>
+                                <p class="text-gray-600">Fill out the form below and we'll get back to you soon</p>
+                            </div>
+                            <div class="p-6">
+                                <form id="contact-form">
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                            <input type="text" id="name" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                        </div>
+                                        <div>
+                                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                            <input type="email" id="email" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                        </div>
+                                        <div>
+                                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone (Optional)</label>
+                                            <input type="tel" id="phone" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                            <select id="subject" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                                <option value="general">General Inquiry</option>
+                                                <option value="support">Technical Support</option>
+                                                <option value="feedback">Feedback/Suggestions</option>
+                                                <option value="partnership">Partnership Opportunities</option>
+                                                <option value="careers">Careers</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                            <textarea id="message" rows="4" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6">
+                                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition">
+                                            Send Message
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Info -->
+                    <div class="lg:w-1/2">
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+                            <div id="contact-map">
+                                <div class="bg-gray-200 h-full flex items-center justify-center text-gray-500">
+                                    <div class="text-center p-4">
+                                        <i class="fas fa-map-marked-alt text-4xl mb-2"></i>
+                                        <p>Interactive map would display here with our location</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-4">Our Headquarters</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-3"></i>
+                                        <p>123 Healthcare Avenue, Suite 500<br>Tech City, TC 12345</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-phone-alt text-gray-400 mr-3"></i>
+                                        <p>+1 (800) 555-1234</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-envelope text-gray-400 mr-3"></i>
+                                        <p>info@quickmedi.com</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-clock text-gray-400 mr-3"></i>
+                                        <p>Monday - Friday: 9AM - 6PM EST</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6">
+                            <h3 class="text-xl font-semibold mb-4">Frequently Asked Questions</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-medium">How do I book an appointment?</h4>
+                                    <p class="text-gray-600 text-sm mt-1">
+                                        You can book appointments directly through our website or mobile app. Visit the 
+                                        <a href="book-appointment.html" class="text-blue-600 hover:underline">Book Appointment</a> 
+                                        page to get started.
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">What payment methods do you accept?</h4>
+                                    <p class="text-gray-600 text-sm mt-1">
+                                        We accept all major credit cards, PayPal, and select insurance plans for eligible services.
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Is my personal health information secure?</h4>
+                                    <p class="text-gray-600 text-sm mt-1">
+                                        Absolutely. We use industry-standard encryption and comply with all healthcare privacy 
+                                        regulations to protect your data.
+                                    </p>
+                                </div>
+                            </div>
+                            <a href="faq.html" class="inline-block mt-4 text-blue-600 hover:text-blue-800 font-medium">
+                                View all FAQs <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 bg-blue-600 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-6">Need Help Right Away?</h2>
+                <p class="text-xl mb-8 max-w-3xl mx-auto">
+                    For medical emergencies, please call 911 or visit the nearest hospital.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="ambulance-service.html" class="bg-white text-blue-600 hover:bg-gray-100 py-3 px-6 rounded-lg font-medium transition">
+                        <i class="fas fa-ambulance mr-2"></i> Emergency Services
+                    </a>
+                    <a href="find-hospital.html" class="bg-transparent border-2 border-white hover:bg-blue-700 py-3 px-6 rounded-lg font-medium transition">
+                        <i class="fas fa-hospital mr-2"></i> Find Nearest Hospital
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real app, this would send the form data to your backend
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            console.log('Form submitted:', formData);
+            
+            // Show success message
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Initialize map (this would use Google Maps API in a real implementation)
+        function initMap() {
+            // In a real app, this would initialize the Google Map
+            console.log('Map would be initialized here with Google Maps API');
+        }
+
+        // Initialize map (commented out for this demo)
+        // window.initMap = initMap;
+    </script>
+</body>
+</html>
