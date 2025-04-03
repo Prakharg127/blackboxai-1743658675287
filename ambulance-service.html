@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambulance Service | QuickMedi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 0.75rem;
+        }
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <main class="min-h-screen py-8">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold mb-8">Ambulance Service</h1>
+            
+            <!-- Emergency Request Section -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                <div class="p-6 bg-red-600 text-white">
+                    <h2 class="text-2xl font-bold mb-2">Emergency Assistance</h2>
+                    <p>Request immediate medical help in emergency situations</p>
+                </div>
+                <div class="p-6">
+                    <div id="request-section" class="text-center">
+                        <button id="request-ambulance" class="pulse bg-red-600 hover:bg-red-700 text-white text-xl font-bold py-4 px-8 rounded-full transition">
+                            <i class="fas fa-ambulance mr-2"></i> REQUEST AMBULANCE
+                        </button>
+                        <p class="mt-4 text-gray-600">Only use in case of real emergencies</p>
+                    </div>
+
+                    <div id="location-section" class="hidden">
+                        <h3 class="text-xl font-semibold mb-4">Share Your Location</h3>
+                        <p class="mb-4">To dispatch the nearest ambulance, we need your location:</p>
+                        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                            <button id="use-current-location" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg transition">
+                                <i class="fas fa-location-arrow mr-2"></i> Use Current Location
+                            </button>
+                            <span class="self-center text-gray-500">or</span>
+                            <div class="flex-1">
+                                <input type="text" id="manual-address" placeholder="Enter your address" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                        <div id="map" class="mb-6"></div>
+                    </div>
+
+                    <div id="confirmation-section" class="hidden">
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <strong>Ambulance Request Received!</strong>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                            <h3 class="text-lg font-semibold mb-3">Request Details</h3>
+                            <div class="space-y-2">
+                                <div class="flex">
+                                    <span class="text-gray-600 w-32">Status:</span>
+                                    <span id="request-status" class="font-medium">Processing</span>
+                                </div>
+                                <div class="flex">
+                                    <span class="text-gray-600 w-32">Location:</span>
+                                    <span id="request-location" class="font-medium">Not specified</span>
+                                </div>
+                                <div class="flex">
+                                    <span class="text-gray-600 w-32">ETA:</span>
+                                    <span id="request-eta" class="font-medium">Calculating...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="share-status" class="mr-2">
+                                <span>Share request status with emergency contacts</span>
+                            </label>
+                        </div>
+                        <button id="cancel-request" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition mr-3">
+                            Cancel Request
+                        </button>
+                        <button id="call-911" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition">
+                            <i class="fas fa-phone-alt mr-2"></i> Call Emergency Services
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Non-Emergency Section -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-6 bg-blue-600 text-white">
+                    <h2 class="text-2xl font-bold mb-2">Non-Emergency Transport</h2>
+                    <p>Schedule medical transportation for non-urgent needs</p>
+                </div>
+                <div class="p-6">
+                    <form id="non-emergency-form">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="transport-date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                <input type="date" id="transport-date" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="transport-time" class="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                                <input type="time" id="transport-time" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="pickup-location" class="block text-sm font-medium text-gray-700 mb-1">Pickup Location</label>
+                                <input type="text" id="pickup-location" placeholder="Address or hospital name" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="destination" class="block text-sm font-medium text-gray-700 mb-1">Destination</label>
+                                <input type="text" id="destination" placeholder="Address or hospital name" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="patient-info" class="block text-sm font-medium text-gray-700 mb-1">Patient Information</label>
+                                <textarea id="patient-info" rows="3" placeholder="Patient name, condition, and special requirements" class="w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition">
+                            <i class="fas fa-calendar-check mr-2"></i> Schedule Transport
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+
+    <!-- Google Maps API (would be replaced with actual API key in production) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=places" async defer></script>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+
+        // Ambulance request functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const requestAmbulanceBtn = document.getElementById('request-ambulance');
+            const useCurrentLocationBtn = document.getElementById('use-current-location');
+            const manualAddressInput = document.getElementById('manual-address');
+            const cancelRequestBtn = document.getElementById('cancel-request');
+            const call911Btn = document.getElementById('call-911');
+            const nonEmergencyForm = document.getElementById('non-emergency-form');
+            let map, marker, geocoder;
+
+            // Initialize map (this would use Google Maps API in a real implementation)
+            function initMap() {
+                // In a real app, this would initialize the Google Map
+                console.log('Map would be initialized here with Google Maps API');
+                geocoder = new google.maps.Geocoder();
+                
+                // This is just a placeholder for the demo
+                document.getElementById('map').innerHTML = `
+                    <div class="bg-gray-200 h-full flex items-center justify-center text-gray-500">
+                        <div class="text-center p-4">
+                            <i class="fas fa-map-marked-alt text-4xl mb-2"></i>
+                            <p>Map would display here with your location and nearest ambulance stations</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Request ambulance button
+            requestAmbulanceBtn.addEventListener('click', function() {
+                document.getElementById('request-section').classList.add('hidden');
+                document.getElementById('location-section').classList.remove('hidden');
+            });
+
+            // Use current location
+            useCurrentLocationBtn.addEventListener('click', function() {
+                this.disabled = true;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Detecting Location...';
+                
+                // In a real app, this would use the Geolocation API
+                setTimeout(() => {
+                    // Simulate successful location detection
+                    document.getElementById('request-location').textContent = "123 Main St, Cityville";
+                    document.getElementById('request-eta').textContent = "8-12 minutes";
+                    
+                    // Show confirmation
+                    document.getElementById('location-section').classList.add('hidden');
+                    document.getElementById('confirmation-section').classList.remove('hidden');
+                    
+                    // Simulate status updates
+                    setTimeout(() => {
+                        document.getElementById('request-status').textContent = "Ambulance Dispatched";
+                    }, 3000);
+                    
+                    setTimeout(() => {
+                        document.getElementById('request-status').textContent = "En Route";
+                    }, 6000);
+                }, 2000);
+            });
+
+            // Manual address input
+            manualAddressInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    if (this.value.trim() === '') {
+                        alert('Please enter an address');
+                        return;
+                    }
+                    
+                    document.getElementById('request-location').textContent = this.value;
+                    document.getElementById('request-eta').textContent = "10-15 minutes";
+                    
+                    // Show confirmation
+                    document.getElementById('location-section').classList.add('hidden');
+                    document.getElementById('confirmation-section').classList.remove('hidden');
+                    
+                    // Simulate status updates
+                    setTimeout(() => {
+                        document.getElementById('request-status').textContent = "Ambulance Dispatched";
+                    }, 3000);
+                    
+                    setTimeout(() => {
+                        document.getElementById('request-status').textContent = "En Route";
+                    }, 6000);
+                }
+            });
+
+            // Cancel request
+            cancelRequestBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to cancel the ambulance request?')) {
+                    document.getElementById('confirmation-section').classList.add('hidden');
+                    document.getElementById('request-section').classList.remove('hidden');
+                    useCurrentLocationBtn.disabled = false;
+                    useCurrentLocationBtn.innerHTML = '<i class="fas fa-location-arrow mr-2"></i> Use Current Location';
+                    manualAddressInput.value = '';
+                }
+            });
+
+            // Call emergency services
+            call911Btn.addEventListener('click', function() {
+                alert('In a real implementation, this would initiate a call to emergency services');
+            });
+
+            // Non-emergency form submission
+            nonEmergencyForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    date: document.getElementById('transport-date').value,
+                    time: document.getElementById('transport-time').value,
+                    pickup: document.getElementById('pickup-location').value,
+                    destination: document.getElementById('destination').value,
+                    patientInfo: document.getElementById('patient-info').value
+                };
+                
+                console.log('Form data:', formData);
+                alert('Transport scheduled successfully! You will receive a confirmation shortly.');
+                this.reset();
+            });
+
+            // Initialize map (commented out for this demo)
+            // window.initMap = initMap;
+        });
+    </script>
+</body>
+</html>
